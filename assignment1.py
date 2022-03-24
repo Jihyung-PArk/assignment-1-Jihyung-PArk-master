@@ -9,6 +9,7 @@ GitHub URL: ...
 FILE_NAME = "places.csv"
 
 
+
 def load_places(csv_file, list_of_places):
     try:
         infile = open(csv_file, 'r')
