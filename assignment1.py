@@ -83,18 +83,16 @@ def add_new_place(list_of_places):
             print("Invalid input; enter a valid number")
             priority_input = input("Priority: ")
 
+        elif priority_input != int:
+            print("Invalid input; enter a valid number")
+            priority_input = input("Priority: ")
 
         elif int(priority_input) <= 0:
             print("Number must be > 0")
             priority_input = input("Priority: ")
 
+        elif int(priority_input) > 0:
 
-        elif priority_input != int:
-            print("Invalid input; enter a valid number")
-            priority_input = input("Priority: ")
-
-        else:
-            break
 
     appending_list = []
 
@@ -102,6 +100,8 @@ def add_new_place(list_of_places):
     appending_list.append(country_input)
     appending_list.append(priority_input)
     appending_list.append("n")
+
+    print(appending_list)
 
     print("{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0], appending_list[1], appending_list[2]))
 
