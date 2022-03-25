@@ -63,48 +63,45 @@ def find_max(list_of_places):
 
 
 def add_new_place(list_of_places):
-
+    appending_list = []
 
     name_input = input("Name: ")
     while name_input == "":
         print("Input can not be blank")
         name_input = input("name: ")
+    print(name_input)
 
     country_input = input("Country: ")
     while country_input == "":
         print("Input can not be blank")
         country_input = input("Country: ")
+    print(country_input)
 
     priority_input = input("Priority: ")
 
-    while True:
+    while priority_input == "" or priority_input.isalpha() or int(priority_input) <= 0:
 
-        if priority_input == "":
-            print("Invalid input; enter a valid number")
-            priority_input = input("Priority: ")
+            if priority_input == "":
+                print("Invalid input; enter a valid number")
+                priority_input = input("Priority: ")
+                print(priority_input)
 
-        elif priority_input != int:
-            print("Invalid input; enter a valid number")
-            priority_input = input("Priority: ")
+            elif priority_input.isalpha():
+                print("Invalid input; enter a valid number")
+                priority_input = input("Priority: ")
 
-        elif int(priority_input) <= 0:
-            print("Number must be > 0")
-            priority_input = input("Priority: ")
-
-        elif int(priority_input) > 0:
-
-
-    appending_list = []
+            elif int(priority_input) <= 0:
+                print("Number must be > 0")
+                priority_input = input("Priority: ")
 
     appending_list.append(name_input)
     appending_list.append(country_input)
     appending_list.append(priority_input)
     appending_list.append("n")
 
-    print(appending_list)
-
     print("{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0], appending_list[1], appending_list[2]))
 
+    list_of_places.append(appending_list)
 
 
 def mark_a_place_visited(list_of_places):
