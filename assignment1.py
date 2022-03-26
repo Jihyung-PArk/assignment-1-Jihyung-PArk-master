@@ -6,6 +6,7 @@ GitHub URL: ...
 """
 
 # Constants
+import csv
 file_name = "places.csv"
 
 
@@ -37,21 +38,21 @@ def display_menu():
 def list_places(list_of_places):
 
     num = 0
-    count_unvisit = 0
-    count_unvisit_check = 0
+    unvisit = 0
+    visit = 0
 
     for list_order in list_of_places:
         num += 1
         print("{0}. {1} in {2} priority {3}".format(num, list_order[0], list_order[1], list_order[2]))
-        if list_order[3] == "n":
-            count_unvisit += 1
-        elif list_order[3] == "v":
-            count_unvisit_check += 1
+        unvisit += list_order[3].count("n")
+        visit += list_order[3].count("v")
 
-    if num == count_unvisit_check:
+
+
+    if num == visit:
         print("{0} places. No places left to visit. why not add a new place?".format(num))
     else:
-        print("{0} places. You still want tp visit {1} places.".format(num, count_unvisit))
+        print("{0} places. You still want to visit {1} places.".format(num, unvisit))
 
 # find max len of name of place and name of country
 
@@ -73,78 +74,107 @@ def find_max(list_of_places):
 def add_new_place(list_of_places):
     appending_list = []
 
-    name_input = input("Name: ")
-    while name_input == "":
-        print("Input can not be blank")
-        name_input = input("name: ")
-    print(name_input)
+    while True:
+        name_input = str(input("Name: "))
+        if name_input == "":
+            print("Input can not be blank")
+        else:
+            appending_list.append(name_input)
+            break
 
-    country_input = input("Country: ")
-    while country_input == "":
-        print("Input can not be blank")
+    while True:
         country_input = input("Country: ")
-    print(country_input)
+        if country_input == "":
+            print("Input can not be blank")
+        else:
+            appending_list.append(country_input)
+            break
 
-    priority_input = input("Priority: ")
+    while True:
+        try:
+            priority_input = int(input("Priority: "))
 
-    while priority_input == "" or priority_input.isalpha() or int(priority_input) <= 0:
-
-            if priority_input == "":
-                print("Invalid input; enter a valid number")
-                priority_input = input("Priority: ")
-                print(priority_input)
-
-            elif priority_input.isalpha() :
-                print("Invalid input; enter a valid number")
-                priority_input = input("Priority: ")
-
-            elif int(priority_input) <= 0:
+            if int(priority_input) <= 0:
                 print("Number must be > 0")
-                priority_input = input("Priority: ")
+            else:
+                appending_list.append(priority_input)
+                break
 
-    appending_list.append(name_input)
-    appending_list.append(country_input)
-    appending_list.append(priority_input)
+        except ValueError:
+            print("Invalid input; enter a valid number")
+
+
+
+
+
     appending_list.append("n")
 
-    print("{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0], appending_list[1], appending_list[2]))
+    print(
+        "{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0], appending_list[1],
+                                                                   appending_list[2]))
 
     list_of_places.append(appending_list)
 
 
+
+
+
 def mark_a_place_visited(list_of_places):
     num = 0
-    count_unvisit = 0
     num_check = 0
-    count_unvisit_check = 0
+    visit = 0
+    unvisit = 0
 
     for list_order in list_of_places:
         num_check += 1
-        if list_order[3] == "v":
-            count_unvisit_check += 1
+        visit += list_order[3].count("v")
+        unvisit += list_order[3].count("n")
 
-    if num_check == count_unvisit_check:
+
+
+    if num_check == visit:
         print("No unvisited places")
     else:
 
         for list_order in list_of_places:
             num += 1
             print("{0}. {1} in {2} priority {3}".format(num, list_order[0], list_order[1], list_order[2]))
-            if list_order[3] == "n":
-                count_unvisit += 1
-        print("{0} places. You still want to visit {1} places.".format(num, count_unvisit))
 
+        print("{0} places. You still want to visit {1} places.".format(num, unvisit))
 
-        list_name_change = int(input("Enter the number of a place to mark as visited :"))
-        list_name_change -= 1
-        list_of_places[list_name_change][3] = "v"
-        print("{0} in {1} visited".format(list_of_places[list_name_change][0],list_of_places[list_name_change][1]))
+        while True:
+            try:
+                list_name_change = int(input("Enter the number of a place to mark as visited :"))
+                list_name_change_for_csv = list_name_change
+                list_name_change_for_csv -= 1
 
+                if int(list_name_change) <= 0:
+                    print("Number must be > 0")
 
+                elif int(list_name_change) > num:
+                    print("Invalid palce number")
 
+                elif list_of_places[int(list_name_change_for_csv)][3] == " v":
+                    print("That place is already visited")
+                    break
+
+                else:
+                    list_of_places[int(list_name_change_for_csv)][3] = "v"
+                    print("{0} in {1} visited".format(list_of_places[list_name_change_for_csv][0],
+                                                          list_of_places[list_name_change_for_csv][1]))
+                    break
+            except ValueError:
+                print("Invalid input; enter a valid number")
 
 
 def save_places(csv_file, list_of_places):
+
+    infile = open(file_name, "w")
+    writer = csv.writer(infile)
+
+    writer.writerows(list_of_places)
+    infile.close()
+
     print('{} places saved to {}'.format(len(list_of_places), csv_file))
 
 
@@ -169,7 +199,7 @@ def main():
         display_menu()
         choice = input("Enter a choice: ").strip().upper()
     save_places(file_name, list_of_places)
-    print("Bye.")
+    print("Have a nice day :)")
 
 
 if __name__ == '__main__':
