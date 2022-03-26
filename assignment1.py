@@ -35,16 +35,23 @@ def display_menu():
 
 
 def list_places(list_of_places):
+
     num = 0
     count_unvisit = 0
+    count_unvisit_check = 0
 
     for list_order in list_of_places:
         num += 1
         print("{0}. {1} in {2} priority {3}".format(num, list_order[0], list_order[1], list_order[2]))
         if list_order[3] == "n":
             count_unvisit += 1
+        elif list_order[3] == "v":
+            count_unvisit_check += 1
 
-    print("{0} placese. You still want tp visit {1} places.".format(num, count_unvisit))
+    if num == count_unvisit_check:
+        print("{0} places. No places left to visit. why not add a new place?".format(num))
+    else:
+        print("{0} places. You still want tp visit {1} places.".format(num, count_unvisit))
 
 # find max len of name of place and name of country
 def find_max(list_of_places):
@@ -105,7 +112,35 @@ def add_new_place(list_of_places):
 
 
 def mark_a_place_visited(list_of_places):
-    print('choice M')
+    num = 0
+    count_unvisit = 0
+    num_check = 0
+    count_unvisit_check = 0
+
+    for list_order in list_of_places:
+        num_check += 1
+        if list_order[3] == "v":
+            count_unvisit_check += 1
+
+    if num_check == count_unvisit_check:
+        print("No unvisited places")
+    else:
+
+        for list_order in list_of_places:
+            num += 1
+            print("{0}. {1} in {2} priority {3}".format(num, list_order[0], list_order[1], list_order[2]))
+            if list_order[3] == "n":
+                count_unvisit += 1
+        print("{0} places. You still want to visit {1} places.".format(num, count_unvisit))
+
+
+        list_name_change = int(input("Enter the number of a place to mark as visited :"))
+        list_name_change -= 1
+        list_of_places[list_name_change][3] = "v"
+        print("{0} in {1} visited".format(list_of_places[list_name_change][0],list_of_places[list_name_change][1]))
+
+
+
 
 
 def save_places(csv_file, list_of_places):
