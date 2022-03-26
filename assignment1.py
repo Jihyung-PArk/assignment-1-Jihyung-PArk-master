@@ -54,6 +54,7 @@ def list_places(list_of_places):
         print("{0} places. You still want tp visit {1} places.".format(num, count_unvisit))
 
 # find max len of name of place and name of country
+
 def find_max(list_of_places):
     count_place = 0
     count_country = 0
