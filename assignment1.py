@@ -86,7 +86,7 @@ def add_new_place(list_of_places):
                 priority_input = input("Priority: ")
                 print(priority_input)
 
-            elif priority_input.isalpha():
+            elif priority_input.isalpha() :
                 print("Invalid input; enter a valid number")
                 priority_input = input("Priority: ")
 
