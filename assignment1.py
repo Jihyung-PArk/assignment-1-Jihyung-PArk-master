@@ -18,6 +18,7 @@ def load_places(csv_file, list_of_places):
             # convert the second item, which is priority, from str to int
             temp_list[2] = int(temp_list[2])
             list_of_places.append(temp_list)
+            list_sort(list_of_places)
         infile.close()
         print("{} places loaded from {}".format(len(list_of_places), csv_file))
 
@@ -95,6 +96,7 @@ def add_new_place(list_of_places):
         "{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0], appending_list[1],
                                                                    appending_list[2]))
     list_of_places.append(appending_list)
+    list_sort(list_of_places)
 
 
 def mark_a_place_visited(list_of_places):
@@ -137,8 +139,8 @@ def mark_a_place_visited(list_of_places):
                     break
 
                 else:
+
                     list_of_places[int(list_name_change_for_csv)][3] = "v"
-                    list_sort(list_of_places)
                     print("{0} in {1} visited".format(list_of_places[list_name_change_for_csv][0],
                                                           list_of_places[list_name_change_for_csv][1]))
                     break
