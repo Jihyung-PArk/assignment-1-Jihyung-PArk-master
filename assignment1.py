@@ -53,8 +53,8 @@ def list_places(list_of_places):
     for list_order in list_of_places:
         num += 1
 
-        print("{0}. {1: <{2}} in {3: <{4}} priority {5}" \
-              .format(num, list_order[0], find_max_name(list_of_places), list_order[1],
+        print("{0}. {1: <{2}} in {3: <{4}} priority {5}".
+              format(num, list_order[0], find_max_name(list_of_places), list_order[1],
                       find_max_country(list_of_places), list_order[2]))
 
         # add visit and un_visit element
@@ -91,7 +91,7 @@ def add_new_place(list_of_places):
         if country_input == "":
             print("Input can not be blank")
         # check country_input is integer
-        elif name_input.isnumeric() or name_input[0] == "-":
+        elif country_input.isnumeric() or country_input[0] == "-":
             print("Input can not be integer")
         else:
             appending_list.append(country_input)
@@ -118,8 +118,8 @@ def add_new_place(list_of_places):
 
     # print new place information
     print(
-        "{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0], appending_list[1],
-                                                                   appending_list[2]))
+        "{0} in {1} (priority {2}) added to Travel Tracker".
+            format(appending_list[0], appending_list[1], appending_list[2]))
     # add new place information and sort by visited status and by priority
     list_of_places.append(appending_list)
     list_sort(list_of_places)
@@ -148,9 +148,9 @@ def mark_a_place_visited(list_of_places):
         # list of places
         for list_order in list_of_places:
             num += 1
-            print("{0}. {1: <{2}} in {3: <{4}} priority {5}".format(num, list_order[0], find_max_name(list_of_places),
-                                                                    list_order[1], find_max_country(list_of_places),
-                                                                    list_order[2]))
+            print("{0}. {1: <{2}} in {3: <{4}} priority {5}".
+                  format(num, list_order[0], find_max_name(list_of_places), list_order[1],
+                         find_max_country(list_of_places), list_order[2]))
         print("{0} places. You still want to visit {1} places.".format(num, un_visit))
 
         # check input(mark) error
