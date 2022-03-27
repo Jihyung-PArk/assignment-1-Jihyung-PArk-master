@@ -20,7 +20,7 @@ def load_places(csv_file, list_of_places):
             list_of_places.append(temp_list)
         infile.close()
         print("{} places loaded from {}".format(len(list_of_places), csv_file))
-        # below print check list element
+        #  (check point) below print check list element
         # print(list_of_places)
 
     except IOError as error:
@@ -43,33 +43,15 @@ def list_places(list_of_places):
 
     for list_order in list_of_places:
         num += 1
-        print("{0}. {1} in {2} priority {3}".format(num, list_order[0], list_order[1], list_order[2]))
+
+        print("{0}. {1: <{2}} in {3: <{4}} priority {5}".format(num, list_order[0], find_max_name(list_of_places), list_order[1], find_max_country(list_of_places), list_order[2]))
         unvisit += list_order[3].count("n")
         visit += list_order[3].count("v")
-
-
 
     if num == visit:
         print("{0} places. No places left to visit. why not add a new place?".format(num))
     else:
         print("{0} places. You still want to visit {1} places.".format(num, unvisit))
-
-# find max len of name of place and name of country
-
-def find_max(list_of_places):
-    count_place = 0
-    count_country = 0
-
-    for i in range(0, len(list_of_places)):
-        max_name = list_of_places[i][0]
-        if len(max_name) > count_place:
-            count_place = len(max_name)
-
-    for i in range(0, len(list_of_places)):
-        max_name = list_of_places[i][0]
-        if len(max_name) > count_country:
-            count_country = len(max_name)
-
 
 def add_new_place(list_of_places):
     appending_list = []
@@ -103,21 +85,12 @@ def add_new_place(list_of_places):
         except ValueError:
             print("Invalid input; enter a valid number")
 
-
-
-
-
     appending_list.append("n")
 
     print(
         "{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0], appending_list[1],
                                                                    appending_list[2]))
-
     list_of_places.append(appending_list)
-
-
-
-
 
 def mark_a_place_visited(list_of_places):
     num = 0
@@ -130,15 +103,13 @@ def mark_a_place_visited(list_of_places):
         visit += list_order[3].count("v")
         unvisit += list_order[3].count("n")
 
-
-
     if num_check == visit:
         print("No unvisited places")
     else:
 
         for list_order in list_of_places:
             num += 1
-            print("{0}. {1} in {2} priority {3}".format(num, list_order[0], list_order[1], list_order[2]))
+            print("{0}. {1: <{2} in {3: <{4}} priority {5}".format(num, list_order[0], find_max_name(list_of_places), list_order[1], find_max_country(list_of_places), list_order[2]))
 
         print("{0} places. You still want to visit {1} places.".format(num, unvisit))
 
@@ -166,7 +137,6 @@ def mark_a_place_visited(list_of_places):
             except ValueError:
                 print("Invalid input; enter a valid number")
 
-
 def save_places(csv_file, list_of_places):
 
     infile = open(file_name, "w")
@@ -177,6 +147,26 @@ def save_places(csv_file, list_of_places):
 
     print('{} places saved to {}'.format(len(list_of_places), csv_file))
 
+# find max len of name of place
+def find_max_name(list_of_places):
+    name_list = []
+    for i in range(0, len(list_of_places)):
+        name_list.append(list_of_places[i][0])
+    max_name = sorted(name_list, key = len)
+    max_name = max_name[-1]
+    return len(max_name)
+
+# find max len of name of country
+def find_max_country(list_of_places):
+    country_list = []
+    for i in range(0, len(list_of_places)):
+        country_list.append(list_of_places[i][1])
+    max_country = sorted(country_list, key = len)
+    max_country = max_country[-1]
+    return len(max_country)
+
+def list_sort(list_of_places):
+    sorted(list_of_places, key = lambda list_of_place)
 
 def main():
     print("Travel Tracker 1.0 - by Jihyung Park")
@@ -186,7 +176,6 @@ def main():
     display_menu()
     choice = input("Enter a choice: ").strip().upper()
     while choice != 'Q':
-        find_max(list_of_places)
 
         if choice == 'L':
             list_places(list_of_places)
