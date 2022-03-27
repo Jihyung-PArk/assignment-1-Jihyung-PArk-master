@@ -50,16 +50,18 @@ def list_places(list_of_places):
     list_sort(list_of_places)
 
     # print list part
-    for list_order in list_of_places:
+    for places in list_of_places:
         num += 1
 
-        print("{0}. {1: <{2}} in {3: <{4}} priority {5}".
-              format(num, list_order[0], find_max_name(list_of_places), list_order[1],
-                      find_max_country(list_of_places), list_order[2]))
+        print("{0}. {1: <{2}} in {3: <{4}} priority {5}".format(num, places[0],
+                                                                find_max_name(list_of_places),
+                                                                places[1],
+                                                                find_max_country(list_of_places),
+                                                                places[2]))
 
         # add visit and un_visit element
-        un_visit += list_order[3].count("n")
-        visit += list_order[3].count("v")
+        un_visit += places[3].count("n")
+        visit += places[3].count("v")
 
     # check if un_visit place
     if num == visit:
@@ -118,8 +120,9 @@ def add_new_place(list_of_places):
 
     # print new place information
     print(
-        "{0} in {1} (priority {2}) added to Travel Tracker".
-            format(appending_list[0], appending_list[1], appending_list[2]))
+        "{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0],
+                                                                   appending_list[1],
+                                                                   appending_list[2]))
     # add new place information and sort by visited status and by priority
     list_of_places.append(appending_list)
     list_sort(list_of_places)
@@ -135,10 +138,10 @@ def mark_a_place_visited(list_of_places):
     list_sort(list_of_places)
 
     # check visit and un_visit place number
-    for list_order in list_of_places:
+    for list_check in list_of_places:
         num_check += 1
-        visit += list_order[3].count("v")
-        un_visit += list_order[3].count("n")
+        visit += list_check[3].count("v")
+        un_visit += list_check[3].count("n")
 
     # check no un_visit place
     if num_check == visit:
@@ -146,35 +149,36 @@ def mark_a_place_visited(list_of_places):
     else:
 
         # list of places
-        for list_order in list_of_places:
+        for places in list_of_places:
             num += 1
             print("{0}. {1: <{2}} in {3: <{4}} priority {5}".
-                  format(num, list_order[0], find_max_name(list_of_places), list_order[1],
-                         find_max_country(list_of_places), list_order[2]))
+                  format(num, places[0], find_max_name(list_of_places), places[1],
+                         find_max_country(list_of_places), places[2]))
         print("{0} places. You still want to visit {1} places.".format(num, un_visit))
 
         # check input(mark) error
         while True:
             try:
-                list_name_change = int(input("Enter the number of a place to mark as visited :"))
-                list_name_change_for_csv = list_name_change
-                list_name_change_for_csv -= 1
+                list_change = int(input("Enter the number of a place to mark as visited :"))
+                list_change_for_csv = list_change
+                list_change_for_csv -= 1
 
-                if int(list_name_change) <= 0:
+                if int(list_change) <= 0:
                     print("Number must be > 0")
 
-                elif int(list_name_change) > num:
+                elif int(list_change) > num:
                     print("Invalid place number")
 
-                elif list_of_places[int(list_name_change_for_csv)][3] == "v":
+                # check mark
+                elif list_of_places[int(list_change_for_csv)][3] == "v":
                     print("That place is already visited")
                     break
 
                 else:
                     # change mark
-                    list_of_places[int(list_name_change_for_csv)][3] = "v"
-                    print("{0} in {1} visited".format(list_of_places[list_name_change_for_csv][0],
-                                                      list_of_places[list_name_change_for_csv][1]))
+                    list_of_places[int(list_change_for_csv)][3] = "v"
+                    print("{0} in {1} visited".format(list_of_places[list_change_for_csv][0],
+                                                      list_of_places[list_change_for_csv][1]))
                     break
             except ValueError:
                 print("Invalid input; enter a valid number")
