@@ -20,7 +20,8 @@ def load_places(csv_file, list_of_places):
             list_of_places.append(temp_list)
         infile.close()
         print("{} places loaded from {}".format(len(list_of_places), csv_file))
-        #  (check point) below print check list element
+
+        # (check point) below print check list element
         # print(list_of_places)
 
     except IOError as error:
@@ -41,6 +42,8 @@ def list_places(list_of_places):
     unvisit = 0
     visit = 0
 
+    list_sort(list_of_places)
+
     for list_order in list_of_places:
         num += 1
 
@@ -54,6 +57,7 @@ def list_places(list_of_places):
         print("{0} places. You still want to visit {1} places.".format(num, unvisit))
 
 def add_new_place(list_of_places):
+
     appending_list = []
 
     while True:
@@ -92,11 +96,14 @@ def add_new_place(list_of_places):
                                                                    appending_list[2]))
     list_of_places.append(appending_list)
 
+
 def mark_a_place_visited(list_of_places):
     num = 0
     num_check = 0
     visit = 0
     unvisit = 0
+
+    list_sort(list_of_places)
 
     for list_order in list_of_places:
         num_check += 1
@@ -109,7 +116,7 @@ def mark_a_place_visited(list_of_places):
 
         for list_order in list_of_places:
             num += 1
-            print("{0}. {1: <{2} in {3: <{4}} priority {5}".format(num, list_order[0], find_max_name(list_of_places), list_order[1], find_max_country(list_of_places), list_order[2]))
+            print("{0}. {1: <{2}} in {3: <{4}} priority {5}".format(num, list_order[0], find_max_name(list_of_places), list_order[1], find_max_country(list_of_places), list_order[2]))
 
         print("{0} places. You still want to visit {1} places.".format(num, unvisit))
 
@@ -125,12 +132,13 @@ def mark_a_place_visited(list_of_places):
                 elif int(list_name_change) > num:
                     print("Invalid palce number")
 
-                elif list_of_places[int(list_name_change_for_csv)][3] == " v":
+                elif list_of_places[int(list_name_change_for_csv)][3] == "v":
                     print("That place is already visited")
                     break
 
                 else:
                     list_of_places[int(list_name_change_for_csv)][3] = "v"
+                    list_sort(list_of_places)
                     print("{0} in {1} visited".format(list_of_places[list_name_change_for_csv][0],
                                                           list_of_places[list_name_change_for_csv][1]))
                     break
@@ -166,7 +174,9 @@ def find_max_country(list_of_places):
     return len(max_country)
 
 def list_sort(list_of_places):
-    sorted(list_of_places, key = lambda list_of_place)
+    list_of_places.sort( key = lambda priority: priority[2])
+    list_of_places.sort( key = lambda visit: visit[3])
+
 
 def main():
     print("Travel Tracker 1.0 - by Jihyung Park")
