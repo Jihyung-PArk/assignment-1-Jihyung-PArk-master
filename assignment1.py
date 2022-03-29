@@ -1,5 +1,5 @@
 """
-Brief description : Si
+Brief description : Travel Tracker
 Name: Jihyung Park
 Date started: 08/03/2021
 GitHub URL: https://github.com/Jihyung-PArk/assignment-1-Jihyung-PArk-master.git
