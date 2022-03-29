@@ -1,5 +1,5 @@
 """
-Brief description ...
+Brief description : Si
 Name: Jihyung Park
 Date started: 08/03/2021
 GitHub URL: https://github.com/Jihyung-PArk/assignment-1-Jihyung-PArk-master.git
@@ -74,46 +74,13 @@ def add_new_place(list_of_places):
     appending_list = []
 
     # Add name and check error
-    while True:
-        name_input = str(input("Name: "))
-        # check name_input is blank
-        if name_input == "":
-            print("Input can not be blank")
-        # check name_input is integer
-        elif name_input.isnumeric() or name_input[0] == "-":
-            print("Input can not be integer")
-        else:
-            appending_list.append(name_input)
-            break
+    method_name(appending_list)
 
     # add country and check error
-    while True:
-        country_input = input("Country: ")
-        # check county_input is blank
-        if country_input == "":
-            print("Input can not be blank")
-        # check country_input is integer
-        elif country_input.isnumeric() or country_input[0] == "-":
-            print("Input can not be integer")
-        else:
-            appending_list.append(country_input)
-            break
+    method_country(appending_list)
 
     # add priority and check error
-    while True:
-        try:
-            priority_input = int(input("Priority: "))
-
-            # check priority_input is negative number
-            if int(priority_input) <= 0:
-                print("Number must be > 0")
-            else:
-                appending_list.append(priority_input)
-                break
-
-        # check priority_input is not integer
-        except ValueError:
-            print("Invalid input; enter a valid number")
+    method_priority(appending_list)
 
     # new place is always un_visit
     appending_list.append("n")
@@ -126,7 +93,6 @@ def add_new_place(list_of_places):
     # add new place information and sort by visited status and by priority
     list_of_places.append(appending_list)
     list_sort(list_of_places)
-
 
 def mark_a_place_visited(list_of_places):
     num = 0
@@ -157,32 +123,7 @@ def mark_a_place_visited(list_of_places):
         print("{0} places. You still want to visit {1} places.".format(num, un_visit))
 
         # check input(mark) error
-        while True:
-            try:
-                list_change = int(input("Enter the number of a place to mark as visited :"))
-                list_change_for_csv = list_change
-                list_change_for_csv -= 1
-
-                if int(list_change) <= 0:
-                    print("Number must be > 0")
-
-                elif int(list_change) > num:
-                    print("Invalid place number")
-
-                # check mark
-                elif list_of_places[int(list_change_for_csv)][3] == "v":
-                    print("That place is already visited")
-                    break
-
-                else:
-                    # change mark
-                    list_of_places[int(list_change_for_csv)][3] = "v"
-                    print("{0} in {1} visited".format(list_of_places[list_change_for_csv][0],
-                                                      list_of_places[list_change_for_csv][1]))
-                    break
-            except ValueError:
-                print("Invalid input; enter a valid number")
-
+        mark_place_error_check(list_of_places, num)
 
 def save_places(csv_file, list_of_places):
     # open the file
@@ -219,6 +160,76 @@ def list_sort(list_of_places):
     list_of_places.sort(key=lambda priority: priority[2])
     list_of_places.sort(key=lambda visit: visit[3])
 
+def method_name(appending_list):
+    while True:
+        name_input = str(input("Name: "))
+        # check name_input is blank
+        if name_input == "":
+            print("Input can not be blank")
+        # check name_input is integer
+        elif name_input.isnumeric() or name_input[0] == "-":
+            print("Input can not be integer")
+        else:
+            appending_list.append(name_input)
+            break
+
+
+def method_country(appending_list):
+    while True:
+        country_input = input("Country: ")
+        # check county_input is blank
+        if country_input == "":
+            print("Input can not be blank")
+        # check country_input is integer
+        elif country_input.isnumeric() or country_input[0] == "-":
+            print("Input can not be integer")
+        else:
+            appending_list.append(country_input)
+            break
+
+
+def method_priority(appending_list):
+    while True:
+        try:
+            priority_input = int(input("Priority: "))
+
+            # check priority_input is negative number
+            if int(priority_input) <= 0:
+                print("Number must be > 0")
+            else:
+                appending_list.append(priority_input)
+                break
+
+        # check priority_input is not integer
+        except ValueError:
+            print("Invalid input; enter a valid number")
+
+def mark_place_error_check(list_of_places, num):
+    while True:
+        try:
+            list_change = int(input("Enter the number of a place to mark as visited :"))
+            list_change_for_csv = list_change
+            list_change_for_csv -= 1
+
+            if int(list_change) <= 0:
+                print("Number must be > 0")
+
+            elif int(list_change) > num:
+                print("Invalid place number")
+
+            # check mark
+            elif list_of_places[int(list_change_for_csv)][3] == "v":
+                print("That place is already visited")
+                break
+
+            else:
+                # change mark
+                list_of_places[int(list_change_for_csv)][3] = "v"
+                print("{0} in {1} visited".format(list_of_places[list_change_for_csv][0],
+                                                  list_of_places[list_change_for_csv][1]))
+                break
+        except ValueError:
+            print("Invalid input; enter a valid number")
 
 def main():
     print("Travel Tracker 1.0 - by Jihyung Park")
