@@ -15,4 +15,4 @@ See https://trello.com/c/6H24THnj/21-wakatime-time-tracking-for-ides-join-our-le
 > I started my CP1404 assignment on March 15th and finally completed it on March 29th. 90% of the project was completed in 5 days from March 23rd to March 27th, and error checks and bugs were fixed during the remaining period.
 
 2. What do you plan to do  differently in your development process for assignment 2?
->In assignment 2, I want to use classes and use simpler logic to complete the overall simple coding. In this assignment, I will make up for the parts I feel lacking by myself, plan complex and not long coding, and make simple coding according to the plan.
+>In assignment 2, I want to use classes, GUI and use simpler logic to complete the overall simple coding. In this assignment, I will make up for the parts I feel lacking by myself, plan complex and not long coding, and make simple coding according to the plan.
