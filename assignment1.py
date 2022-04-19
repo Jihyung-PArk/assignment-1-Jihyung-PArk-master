@@ -46,14 +46,19 @@ def list_places(list_of_places):
     un_visit = 0
     visit = 0
 
+
     # list sort by visited status and by priority
     list_sort(list_of_places)
 
     # print list part
     for places in list_of_places:
         num += 1
+        not_visited = " "
+        if places[3] == "n":
+            not_visited = "*"
 
-        print("{0}. {1: <{2}} in {3: <{4}} priority {5}".format(num, places[0],
+
+        print("{0}{1}. {2: <{3}} in {4: <{5}} priority {5}".format(not_visited, num, places[0],
                                                                 find_max_name(list_of_places),
                                                                 places[1],
                                                                 find_max_country(list_of_places),
@@ -200,7 +205,7 @@ def method_priority(appending_list):
                 appending_list.append(priority_input)
                 break
 
-        # check priority_input is not integer
+        # # check priority_input is not integer
         except ValueError:
             print("Invalid input; enter a valid number")
 
